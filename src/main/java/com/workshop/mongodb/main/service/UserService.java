@@ -1,5 +1,6 @@
 package com.workshop.mongodb.main.service;
 
+import com.workshop.mongodb.main.dto.UserDTO;
 import com.workshop.mongodb.main.entities.User;
 import com.workshop.mongodb.main.repository.UserRepository;
 import com.workshop.mongodb.main.service.exceptions.ObjectNotFoundException;
@@ -28,4 +29,29 @@ public class UserService {
         Optional<User> obj = userRepository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
     }
+
+    public User insert(User obj){
+        return userRepository.insert(obj);
+    }
+
+    public User fromDTO(UserDTO objDto){
+        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+    }
+
+//    public UserDTO update(User user, User entity){
+//        try{
+//            Optional<UserDTO> obj = userRepository.findById(entity.getId());
+//            update(entity, obj);
+//            userRepository.save(obj);
+//            return obj;
+//        }catch(RuntimeException e){
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+//
+//    public void updateData(User user, User userDTO){
+//        userDTO.setEmail(user.getEmail());
+//        userDTO.setName(user.getName());
+//    }
 }
