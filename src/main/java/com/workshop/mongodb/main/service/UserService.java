@@ -57,7 +57,12 @@ public class UserService {
         }catch(EmptyResultDataAccessException e){
             e.printStackTrace();
         }
+    }
 
+    public User update(User entity){
+        User user = findById(entity.getId());
+        updateData(entity, user);
+        return userRepository.save(user);
     }
 
 //    public UserDTO update(User user, User entity){
@@ -72,8 +77,8 @@ public class UserService {
 //        return null;
 //    }
 //
-//    public void updateData(User user, User userDTO){
-//        userDTO.setEmail(user.getEmail());
-//        userDTO.setName(user.getName());
-//    }
+    public void updateData(User entity, User user){
+        user.setName(entity.getName());
+        user.setEmail(entity.getName());
+    }
 }
