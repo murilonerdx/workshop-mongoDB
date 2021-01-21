@@ -4,8 +4,10 @@ import com.workshop.mongodb.main.dto.UserDTO;
 import com.workshop.mongodb.main.entities.User;
 import com.workshop.mongodb.main.repository.UserRepository;
 import com.workshop.mongodb.main.service.exceptions.ObjectNotFoundException;
+import com.workshop.mongodb.main.service.exceptions.ResourceExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +33,31 @@ public class UserService {
     }
 
     public User insert(User obj){
-        return userRepository.insert(obj);
+        try{
+            return userRepository.insert(obj);
+        }catch(RuntimeException e){
+            throw new IllegalStateException(e);
+        }
+
     }
 
     public User fromDTO(UserDTO objDto){
-        return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+        try{
+            return new User(objDto.getId(), objDto.getName(), objDto.getEmail());
+        }catch(RuntimeException e){
+            throw new ObjectNotFoundException("Objeto não identificado");
+        }
+
+    }
+
+    public void delete(String id){
+        try{
+            findById(id);
+            userRepository.deleteById(id);
+        }catch(EmptyResultDataAccessException e){
+            e.printStackTrace();
+        }
+
     }
 
 //    public UserDTO update(User user, User entity){
