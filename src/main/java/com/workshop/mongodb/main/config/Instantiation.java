@@ -1,6 +1,7 @@
 package com.workshop.mongodb.main.config;
 
 import com.workshop.mongodb.main.dto.AuthorDTO;
+import com.workshop.mongodb.main.dto.CommentDTO;
 import com.workshop.mongodb.main.entities.Post;
 import com.workshop.mongodb.main.entities.User;
 import com.workshop.mongodb.main.repository.PostRepository;
@@ -44,6 +45,13 @@ public class Instantiation implements CommandLineRunner {
         Post post2 = new Post(null, Instant.now(), "O Murilo é muito legal!", "É verdade o titulo", new AuthorDTO(alex));
         Post post3 = new Post(null, Instant.now(), "O Murilo é muito muito legal mesmo mesmo!", "Nunca vi tanta verdade em um titulo", new AuthorDTO(bob));
 
+
+        CommentDTO comment = new CommentDTO("Verdade mano", Instant.now(), new AuthorDTO(alex));
+        CommentDTO comment2 = new CommentDTO("Verdade mano", Instant.now(), new AuthorDTO(maria));
+        CommentDTO comment3 = new CommentDTO("Verdade mano", Instant.now(), new AuthorDTO(bob));
+
+        post1.getComments().addAll(Arrays.asList(comment, comment2));
+        post2.getComments().add(comment3);
         postRepository.saveAll(Arrays.asList(post1, post2, post3));
 
         maria.getPosts().addAll(Arrays.asList(post1, post2));

@@ -4,6 +4,7 @@ import com.workshop.mongodb.main.dto.UserDTO;
 import com.workshop.mongodb.main.entities.Post;
 import com.workshop.mongodb.main.entities.User;
 import com.workshop.mongodb.main.repository.PostRepository;
+import com.workshop.mongodb.main.service.PostService;
 import com.workshop.mongodb.main.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,12 +24,12 @@ public class PostResource {
 
 
     @Autowired
-    private PostRepository postRepository;
+    private PostService service;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Post>> findAll(){
-        List<Post> listPost = postRepository.findAll();
-        return ResponseEntity.ok().body(listPost);
+    @RequestMapping(value="/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Post> findById(@PathVariable String id) {
+        Post obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
     }
 
 }
