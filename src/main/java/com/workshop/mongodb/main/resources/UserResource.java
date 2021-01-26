@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.websocket.server.PathParam;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +24,7 @@ public class UserResource {
     private UserService userService;
 
     @Qualifier("userService")
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value= "/", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> findAll(){
         List<User> list = userService.findAll();
         List<UserDTO> listDto = list.stream().map(UserDTO::new).collect(Collectors.toList());

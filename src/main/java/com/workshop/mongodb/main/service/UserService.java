@@ -4,7 +4,6 @@ import com.workshop.mongodb.main.dto.UserDTO;
 import com.workshop.mongodb.main.entities.User;
 import com.workshop.mongodb.main.repository.UserRepository;
 import com.workshop.mongodb.main.service.exceptions.ObjectNotFoundException;
-import com.workshop.mongodb.main.service.exceptions.ResourceExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.EmptyResultDataAccessException;
